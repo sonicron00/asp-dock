@@ -1,0 +1,21 @@
+version: "3.7"
+
+networks : 
+  localdev:
+    name: localdev
+
+services:
+  asp-dock:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: asp-dock
+    volumes:
+        - ./app:/app
+    ports:
+       - 8200:80
+    working_dir: /app
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+    networks:
+     - localdev
