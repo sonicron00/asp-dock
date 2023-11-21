@@ -5,11 +5,11 @@ networks :
     name: localdev
 
 services:
-  asp-dock:
+  asp-dock-app:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: asp-dock
+    container_name: asp-dock-app
     volumes:
         - ./app:/app
     ports:
@@ -19,3 +19,14 @@ services:
       ASPNETCORE_ENVIRONMENT: "Development"
     networks:
      - localdev
+
+  asp-dock-db:
+    container_name: asp-dock-db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+        SA_PASSWORD: "password-1234"
+        ACCEPT_EULA: "Y"
+    ports:
+        - 1433:1433
+    networks:
+        - localdev
